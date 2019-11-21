@@ -1,13 +1,50 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm">
-      One of three columns
-    </div>
-    <div class="col-sm">
-      One of three columns
-    </div>
-    <div class="col-sm">
-      One of three columns
+    <div class="col-sm-12">
+      <div class="row">
+        <%= render 'form', post: @new_post %>
+      </div>
+
+      <div class="row">
+        <h3>All Posts</h3>
+      </div>
+
+      <div class="row">
+        <% @all_posts.each do |post| %>
+          <div class="card" style="width: 100%;">
+            <div class="card-body">
+              <h6 class="card-title">
+                <%= post.user.display_name %>
+              </h6>
+
+              <p class="card-subtitle mb-2 text-muted">
+                <%= post.created_at %>
+              </p>
+
+              <h6 class="card-text">
+                <%= post.content %>
+              </h6>
+
+              <a
+                class="card-link"
+                data-toggle="collapse"
+                href="#post_<%= post.id %>"
+                role="button"
+                aria-expanded="false"
+              >
+                Comment
+              </a>
+            </div>
+          </div>
+
+          <div class="collapse" id="post_<%= post.id %>">
+            <div class="card card-body">
+              <%= render 'form', post: @new_post %>
+            </div>
+          </div>
+
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
